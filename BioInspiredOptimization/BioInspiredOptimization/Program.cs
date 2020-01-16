@@ -18,6 +18,16 @@ namespace BioInspiredOptimization
             double[] result = SolveProblem(currentProblem, particleSwarmingAlgorithm);
             double finalError = currentProblem.ErrorFunction(result);
 
+            PrintResult(result, finalError);
+        }
+
+        public static double[] SolveProblem(IProblem problem, ISolver solver)
+        {
+            return solver.Solve(problem);
+        }
+
+        public static void PrintResult(double[] result, double finalError)
+        {
             Console.WriteLine("Best position/solution found:");
             for (int i = 0; i < result.Length; ++i)
             {
@@ -29,11 +39,6 @@ namespace BioInspiredOptimization
             Console.WriteLine(finalError.ToString("F10"));
 
             Console.ReadLine();
-        }
-
-        public static double[] SolveProblem(IProblem problem, ISolver solver)
-        {
-            return solver.Solve(problem);
         }
     }
 }
