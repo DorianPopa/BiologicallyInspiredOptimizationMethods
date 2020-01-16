@@ -10,14 +10,20 @@ namespace BioInspiredOptimization
         {
             IProblem currentProblem = new ExpFunctionProblem(5, -5, 5);
 
-            int numberOfParticles = 25;
+            int numberOfIndividuals = 25;
             int maxIterations = 2000;
+            //double acceptableError = 0;
             double acceptableError = 10e-8d;
-            ISolver particleSwarmingAlgorithm = new ParticleSwarming(numberOfParticles, maxIterations, acceptableError);
-            ISolver cuckooSearchAlgorithm = new CuckooSearch(numberOfParticles, maxIterations, acceptableError, 25, 3, 0.01);
 
-            double[] result = SolveProblem(currentProblem, particleSwarmingAlgorithm);
+            ISolver particleSwarmingAlgorithm = new ParticleSwarming(numberOfIndividuals, maxIterations, acceptableError);
+            ISolver cuckooSearchAlgorithm = new CuckooSearch(numberOfIndividuals, maxIterations, acceptableError, 25, 3, 0.01);
+
+            int numberOfGroups = 5;
+            ISolver competitionOverResourcesAlgorithm = new CompetitionOverResources(numberOfIndividuals, numberOfGroups, maxIterations, acceptableError);
+
+            //double[] result = SolveProblem(currentProblem, particleSwarmingAlgorithm);
             //double[] result = SolveProblem(currentProblem, cuckooSearchAlgorithm);
+            double[] result = SolveProblem(currentProblem, competitionOverResourcesAlgorithm);
             double finalError = currentProblem.ErrorFunction(result);
 
             PrintResult(result, finalError);
