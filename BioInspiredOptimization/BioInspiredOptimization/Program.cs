@@ -8,14 +8,16 @@ namespace BioInspiredOptimization
     {
         static void Main(string[] args)
         {
-            IProblem currentProblem = new ExpFunctionProblem(2, -5, 5);
+            IProblem currentProblem = new ExpFunctionProblem(5, -5, 5);
 
-            int numberOfParticles = 15;
+            int numberOfParticles = 25;
             int maxIterations = 2000;
             double acceptableError = 10e-8d;
             ISolver particleSwarmingAlgorithm = new ParticleSwarming(numberOfParticles, maxIterations, acceptableError);
+            ISolver cuckooSearchAlgorithm = new CuckooSearch(numberOfParticles, maxIterations, acceptableError, 25, 3, 0.01);
 
             double[] result = SolveProblem(currentProblem, particleSwarmingAlgorithm);
+            //double[] result = SolveProblem(currentProblem, cuckooSearchAlgorithm);
             double finalError = currentProblem.ErrorFunction(result);
 
             PrintResult(result, finalError);
